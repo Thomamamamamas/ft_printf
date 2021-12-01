@@ -25,7 +25,7 @@ int		ft_printf(const char *content, ...)
 		if (content[n] == '%')
 		{
 			n++;
-			parse_flag(content[n], arguments);
+			parse_conversion(content[n], arguments);
 		}
 		else
 			ft_putchar_fd(content[n], 1);

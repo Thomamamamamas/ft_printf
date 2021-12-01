@@ -13,10 +13,7 @@
 NAME	= libftprintf.a
 
 SRCS	=	ft_printf.c\
-			flags.c\
-			print_ascii.c\
-			print_signed.c\
-			print_unsigned.c\
+			ft_printf_utils.c
 
 
 OBJS		= ${SRCS:.c=.o}

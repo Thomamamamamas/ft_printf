@@ -16,7 +16,12 @@
 
 int	main()
 {
-	printf("vrai printf : pute %i\n", 12);
-	ft_printf("ft_printf :  %i\n", 12);
+	int	n;
+	int	*m;
+	int	*d;
+
+	n = 0xabcd10;
+	printf("vrai printf : %c", '0');
+	ft_printf("ft_printf : %c", '0');
 	return (0);
 }

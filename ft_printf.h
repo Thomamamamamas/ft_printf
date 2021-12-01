@@ -24,7 +24,7 @@ typedef struct	s_printf
 	char	last_percent;
 }				t_printf;
 
-void			parse_flag(int flag, va_list arguments);
+void			parse_conversion(int conversion, va_list arguments);
 int				ft_printf(const char *content, ...);
 
 #endif

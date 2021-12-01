@@ -11,20 +11,30 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-void	parse_flag(int flag, va_list arguments)
+void	parse_conversion(int conversion, va_list arguments)
 {
-	if (flag == 'd')
-	{
+	char	*str;
+
+	if (conversion == 'd' || conversion == 'i')
 		ft_putstr_fd(ft_itoa(va_arg(arguments, int)), 1);
-	}
-	else if (flag == 'c')
-	{
+	else if (conversion == 'c')
 		ft_putchar_fd(va_arg(arguments, int), 1);
-	}
-	else if (flag == 's')
+	else if (conversion == 's')
 		ft_putstr_fd(va_arg(arguments, char *), 1);
-	else if (flag == '%')
+	else if (conversion == 'X')
+		ft_putstr_fd(ft_itoa_base(va_arg(arguments, int), 16), 1);
+	else if (conversion == 'x' || conversion == 'p')
+	{
+		str = ft_itoa_base(va_arg(arguments, long), 16);
+		if (conversion == 'p')
+			ft_putstr_fd("0x", 1);
+		while (*str)
+			ft_putchar_fd(ft_tolower(*str++), 1);
+		if (str)
+			free(str);
+	}
+	else if (conversion == '%')
 		ft_putchar_fd('%', 1);
 }
