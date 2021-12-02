@@ -6,14 +6,15 @@
 #    By: tcasale <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 14:52:20 by tcasale           #+#    #+#              #
-#    Updated: 2021/11/19 11:08:47 by tcasale          ###   ########.fr        #
+#    Updated: 2021/12/02 17:07:07 by tcasale          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= libftprintf.a
 
-SRCS	=	ft_printf.c\
-			ft_printf_utils.c
+SRCS	=	ft_printf.c \
+			ft_printf_utils.c \
+			conversion.c
 
 
 OBJS		= ${SRCS:.c=.o}

@@ -6,35 +6,38 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:48:45 by tcasale           #+#    #+#             */
-/*   Updated: 2021/11/20 16:34:59 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/02 18:11:08 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
 
-void	parse_conversion(int conversion, va_list arguments)
+int	parse_conversion(int conversion, va_list arguments)
 {
 	char	*str;
+	int		len;
 
 	if (conversion == 'd' || conversion == 'i')
-		ft_putstr_fd(ft_itoa(va_arg(arguments, int)), 1);
+		str = di_conversion(arguments);
 	else if (conversion == 'c')
-		ft_putchar_fd(va_arg(arguments, int), 1);
-	else if (conversion == 's')
-		ft_putstr_fd(va_arg(arguments, char *), 1);
-	else if (conversion == 'X')
-		ft_putstr_fd(ft_itoa_base(va_arg(arguments, int), 16), 1);
-	else if (conversion == 'x' || conversion == 'p')
 	{
-		str = ft_itoa_base(va_arg(arguments, long), 16);
-		if (conversion == 'p')
-			ft_putstr_fd("0x", 1);
-		while (*str)
-			ft_putchar_fd(ft_tolower(*str++), 1);
-		if (str)
-			free(str);
+		c_conversion(arguments);
+		return (1);
 	}
+	else if (conversion == 's')
+		str = s_conversion(arguments);
+	else if (conversion == 'x' || conversion == 'p' || conversion == 'X')
+		str = pxX_conversion(arguments, conversion);
 	else if (conversion == '%')
+	{
 		ft_putchar_fd('%', 1);
+		return (1);
+	}
+	len = ft_strlen(str);
+	if (conversion == 'p')
+		len += 2;
+	if (conversion != '%')
+		free(str);
+	return (len);
 }

@@ -6,31 +6,36 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:17:23 by tcasale           #+#    #+#             */
-/*   Updated: 2021/11/20 16:35:01 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/02 17:27:39 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int		ft_printf(const char *content, ...)
+int	ft_printf(const char *content, ...)
 {
 	va_list	arguments;
+	int			len;
 	size_t		n;
 
 	va_start(arguments, content);
+	len = 0;
 	n = 0;
 	while (content[n])
 	{
 		if (content[n] == '%')
 		{
 			n++;
-			parse_conversion(content[n], arguments);
+			len += parse_conversion(content[n], arguments);
 		}
 		else
+		{
+			len++;
 			ft_putchar_fd(content[n], 1);
+		}
 		n++;
 	}
 	va_end(arguments);
-	return (0);
+	return (len);
 }

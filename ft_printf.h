@@ -6,14 +6,14 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:18:19 by tcasale           #+#    #+#             */
-/*   Updated: 2021/11/20 15:39:08 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/02 15:48:50 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include "Libft/libft.h"
+#include "libft/libft.h"
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -24,7 +24,15 @@ typedef struct	s_printf
 	char	last_percent;
 }				t_printf;
 
-void			parse_conversion(int conversion, va_list arguments);
+int				parse_conversion(int conversion, va_list arguments);
 int				ft_printf(const char *content, ...);
+
+//Conversion
+
+void			c_conversion(va_list arguments);
+char			*s_conversion(va_list arguments);
+char			*pxX_conversion(va_list arguments, int conversion);
+char			*di_conversion(va_list arguments);
+char			*u_conversion(va_list arguments);
 
 #endif
