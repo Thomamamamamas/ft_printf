@@ -6,13 +6,14 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 11:24:30 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/02 17:37:48 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/03 14:39:47 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft/libft.h"
 #include <stdio.h>
+#include <limits.h>
 /*
 int	main()
 {
@@ -34,11 +35,11 @@ int	main()
 
 int main(int ac , char **av)
 {
+	int i = 42;
 
-	int i = 0;
 
-	printf("Ret V = %d\n", printf("\nI== %p\n", i));
-	printf("Ret F = %d\n", ft_printf("\nI== %p\n", i));
+	printf("Ret V = %d\n", printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0));
+	printf("Ret F = %d\n", ft_printf("%%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %%%c%%%s%%%d%%%i%%%u%%%x%%%X%%%% %c%%", 'A', "42", 42, 42 ,42 , 42, 42, 'B', "-42", -42, -42 ,-42 ,-42, 42, 'C', "0", 0, 0 ,0 ,0, 42, 0));
 }
 
 
