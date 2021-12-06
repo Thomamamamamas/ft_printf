@@ -1,32 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/06 16:54:18 by tcasale           #+#    #+#             */
+/*   Updated: 2021/12/06 16:54:24 by tcasale          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
-{
-	return(write(1, &c, 1));
-}
-
-int	ft_putnbr(int n)
-{
-	long long int	lln;
-	int				len;
-
-	lln = n;
-	len = 0;
-	if (lln < 0)
-	{
-		len += ft_putchar('-');
-		lln = lln * -1;
-	}
-	if (lln > 9)
-	{
-		len += ft_putnbr(lln / 10);
-		lln = lln % 10;
-	}
-	len += ft_putchar(lln + '0');
-	return (len);
-}
-
-int		ft_put_address(unsigned long long n)
+int	ft_put_address(unsigned long long n)
 {
 	char	*caracters;
 	int		len;
@@ -43,7 +29,7 @@ int		ft_put_address(unsigned long long n)
 	return (len);
 }
 
-int		ft_putnbr_hexa(long long n)
+int	ft_putnbr_hexa(long long n)
 {
 	char	*caracters;
 	int		len;
@@ -60,14 +46,13 @@ int		ft_putnbr_hexa(long long n)
 	return (len);
 }
 
-int		ft_putnbr_hexa_lower(long long n)
+int	ft_putnbr_hexa_lower(long long n)
 {
 	char	*caracters;
 	int		len;
 
 	caracters = "0123456789abcdef";
 	len = 0;
-
 	if (n >= LONG_MAX)
 		return (ft_putstr("ffffffff"));
 	if (n >= 16)

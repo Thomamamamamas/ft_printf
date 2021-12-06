@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:48:45 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/06 16:42:54 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/06 16:53:34 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int	parse_conversion(int conversion, va_list arguments)
 {
 	int	len;
-
 
 	len = 0;
 	if (conversion == 'd' || conversion == 'i')
@@ -38,6 +37,49 @@ int	parse_conversion(int conversion, va_list arguments)
 		len = ft_putnbr_unsigned(va_arg(arguments, int));
 	else if (conversion == '%')
 		len = ft_putchar('%');
+	return (len);
+}
+
+int	ft_putchar(char c)
+{
+	return (write(1, &c, 1));
+}
+
+int	ft_putstr(char *s)
+{
+	int	n;
+	int	len;
+
+	len = 0;
+	if (!s)
+		return (ft_putstr("(null)"));
+	n = 0;
+	while (s[n])
+	{
+		len += ft_putchar(s[n]);
+		n++;
+	}
+	return (len);
+}
+
+int	ft_putnbr(int n)
+{
+	long long int	lln;
+	int				len;
+
+	lln = n;
+	len = 0;
+	if (lln < 0)
+	{
+		len += ft_putchar('-');
+		lln = lln * -1;
+	}
+	if (lln > 9)
+	{
+		len += ft_putnbr(lln / 10);
+		lln = lln % 10;
+	}
+	len += ft_putchar(lln + '0');
 	return (len);
 }
 
