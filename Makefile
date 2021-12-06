@@ -6,7 +6,7 @@
 #    By: tcasale <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 14:52:20 by tcasale           #+#    #+#              #
-#    Updated: 2021/12/02 17:07:07 by tcasale          ###   ########.fr        #
+#    Updated: 2021/12/06 16:49:59 by tcasale          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,40 +14,26 @@ NAME	= libftprintf.a
 
 SRCS	=	ft_printf.c \
 			ft_printf_utils.c \
-			conversion.c
+			ft_printf_utils2.c
 
+FLAGS = -Wall -Wextra -Werror
 
-OBJS		= ${SRCS:.c=.o}
+OBJS = ${SRCS:.c=.o}
 
-HEADER	= includes
+%.o:	%.c
+	gcc -c ${FLAGS} -o $@ $<
 
-CC		= gcc
-RM		= rm -f
-AR		= ar rcs
+all:	${NAME}
 
-CFLAGS = -Wall -Wextra -Werror
-
-%.o: %.c
-			${CC} -c ${CFLAGS} -I./Libft -o $@ $<
-
-all: $(NAME)
-
-
-$(NAME):	libft ${OBJS}
-			$(AR) ${NAME} $(OBJS)
-
-libft:
-	$(MAKE) -C ./Libft bonus
-	cp libft/libft.a $(NAME)
+${NAME}:${OBJS}
+	ar rc ${NAME} ${OBJS}
 
 clean:
-		$(MAKE) -C ./Libft $@
-		${RM} ${OBJS}
+	rm -f ${SRCS:.c=.o}
 
 fclean:	clean
-		$(MAKE) -C ./Libft $@
-		${RM} ${NAME}
+	rm -f ${NAME}
 
-re: fclean all
+re:	fclean all
 
-.PHONY:	all clean fclean re libft
+.PHONY:	all clean fclean re

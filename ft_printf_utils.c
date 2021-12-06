@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:48:45 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/03 13:27:00 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/06 16:42:54 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,47 @@
 
 int	parse_conversion(int conversion, va_list arguments)
 {
-	char	*str;
-	int		len;
+	int	len;
 
+
+	len = 0;
 	if (conversion == 'd' || conversion == 'i')
-		str = di_conversion(arguments);
-	else if (conversion == 'c')
-		c_conversion(arguments);
+		len = ft_putnbr(va_arg(arguments, int));
+	if (conversion == 'c')
+		len = ft_putchar(va_arg(arguments, int));
 	else if (conversion == 's')
-		str = s_conversion(arguments);
-	else if (conversion == 'x' || conversion == 'p' || conversion == 'X')
-		str = pxX_conversion(arguments, conversion);
+		len = ft_putstr(va_arg(arguments, char *));
+	else if (conversion == 'p')
+	{
+		len += ft_putstr("0x");
+		len += ft_put_address(va_arg(arguments, unsigned long long));
+	}
+	else if (conversion == 'x')
+		len = ft_putnbr_hexa_lower(va_arg(arguments, unsigned int));
+	else if (conversion == 'X')
+		len = ft_putnbr_hexa(va_arg(arguments, unsigned int));
 	else if (conversion == 'u')
-		str = u_conversion(arguments);
+		len = ft_putnbr_unsigned(va_arg(arguments, int));
 	else if (conversion == '%')
-		ft_putchar_fd('%', 1);
-	if (conversion == '%' || conversion == 'c')
-		return (1);
-	len = ft_strlen(str);
-	if (conversion == 'p')
-		len +=  2;
-	free(str);
+		len = ft_putchar('%');
+	return (len);
+}
+
+int	ft_putnbr_unsigned(int n)
+{
+	unsigned int	nb;
+	int				len;
+
+	len = 0;
+	if (n < 0)
+		nb = n + UINT_MAX + 1;
+	else
+		nb = n;
+	if (nb > 9)
+	{
+		len += ft_putnbr_unsigned(nb / 10);
+		nb = nb % 10;
+	}
+	len += ft_putchar(nb + '0');
 	return (len);
 }

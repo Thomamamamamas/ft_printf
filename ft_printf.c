@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:17:23 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/02 17:27:39 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/06 15:49:23 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	ft_printf(const char *content, ...)
 			len += parse_conversion(content[n], arguments);
 		}
 		else
-		{
-			len++;
-			ft_putchar_fd(content[n], 1);
-		}
+			len += ft_putchar(content[n]);
 		n++;
 	}
 	va_end(arguments);
