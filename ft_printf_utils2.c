@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 16:54:18 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/06 16:54:24 by tcasale          ###   ########.fr       */
+/*   Updated: 2021/12/11 11:03:47 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,5 @@ int	ft_putnbr_hexa_lower(long long n)
 	}
 	else
 		len += ft_putchar(caracters[n % 16]);
-	return (len);
-}
-
-int	ft_putstr(char *s)
-{
-	int	n;
-	int	len;
-
-	len = 0;
-	if (!s)
-		return (ft_putstr("(null)"));
-	n = 0;
-	while (s[n])
-	{
-		len += ft_putchar(s[n]);
-		n++;
-	}
 	return (len);
 }
