@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 12:48:45 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/11 11:03:32 by tcasale          ###   ########.fr       */
+/*   Created: 2022/03/11 20:08:03 by tcasale           #+#    #+#             */
+/*   Updated: 2022/03/11 20:08:39 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "ft_printf.h"
-#include <stdlib.h>
 
 int	parse_conversion(int conversion, va_list arguments)
 {
@@ -37,67 +35,5 @@ int	parse_conversion(int conversion, va_list arguments)
 		len = ft_putnbr_unsigned(va_arg(arguments, int));
 	else if (conversion == '%')
 		len = ft_putchar('%');
-	return (len);
-}
-
-int	ft_putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-int	ft_putstr(char *s)
-{
-	int	n;
-	int	len;
-
-	len = 0;
-	if (!s)
-		return (ft_putstr("(null)"));
-	n = 0;
-	while (s[n])
-	{
-		len += ft_putchar(s[n]);
-		n++;
-	}
-	return (len);
-}
-
-int	ft_putnbr(int n)
-{
-	long long int	lln;
-	int				len;
-
-	lln = n;
-	len = 0;
-	if (lln < 0)
-	{
-		len += ft_putchar('-');
-		lln = lln * -1;
-	}
-	if (lln > 9)
-	{
-		len += ft_putnbr(lln / 10);
-		lln = lln % 10;
-	}
-	len += ft_putchar(lln + '0');
-	return (len);
-}
-
-int	ft_putnbr_unsigned(int n)
-{
-	unsigned int	nb;
-	int				len;
-
-	len = 0;
-	if (n < 0)
-		nb = n + UINT_MAX + 1;
-	else
-		nb = n;
-	if (nb > 9)
-	{
-		len += ft_putnbr_unsigned(nb / 10);
-		nb = nb % 10;
-	}
-	len += ft_putchar(nb + '0');
 	return (len);
 }

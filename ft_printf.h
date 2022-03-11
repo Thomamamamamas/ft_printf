@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:18:19 by tcasale           #+#    #+#             */
-/*   Updated: 2021/12/06 16:56:04 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/11 20:09:17 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include "libft.h"
 
 int				ft_printf(const char *content, ...);
 
