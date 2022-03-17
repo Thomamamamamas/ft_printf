@@ -6,34 +6,50 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:08:03 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/11 20:08:39 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/17 16:04:38 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-int	parse_conversion(int conversion, va_list arguments)
+void	init_ptfo(t_ptfo *po)
 {
+	po->has_flag = 0;
+	po->sharp = 0;
+	po->zero_filled = 0;
+	po->r_just_value = 0;
+	po->l_just = 0;
+	po->l_just_value = 0;
+	po->p_sign = 0;
+	po->i_sign = 0;
+	po->conversion = 0;
+}
+
+void	write_argument(char *str, va_list arguments, t_ptfo *po)
+{
+	if (po->conversion == 'c')
+		po->len += ft_putchar(va_arg(arguments, int));
+	else if (po->conversion == 'x')
+		po->len += write_lower_x(str);
+	else if (po->conversion == '%')
+		po->len += ft_putchar('%');
+	else
+		po->len += ft_putstr(str);
+}
+
+int		write_lower_x(char *str)
+{
+	int	n;
 	int	len;
 
+	n = 0;
 	len = 0;
-	if (conversion == 'd' || conversion == 'i')
-		len = ft_putnbr(va_arg(arguments, int));
-	if (conversion == 'c')
-		len = ft_putchar(va_arg(arguments, int));
-	else if (conversion == 's')
-		len = ft_putstr(va_arg(arguments, char *));
-	else if (conversion == 'p')
+	while (str[n])
 	{
-		len += ft_putstr("0x");
-		len += ft_put_address(va_arg(arguments, unsigned long long));
+		if (ft_isalpha(str[n]))
+			len += ft_putchar(ft_tolower(str[n]));
+		else
+			len += ft_putchar(str[n]);
+		n++;
 	}
-	else if (conversion == 'x')
-		len = ft_putnbr_hexa_lower(va_arg(arguments, unsigned int));
-	else if (conversion == 'X')
-		len = ft_putnbr_hexa(va_arg(arguments, unsigned int));
-	else if (conversion == 'u')
-		len = ft_putnbr_unsigned(va_arg(arguments, int));
-	else if (conversion == '%')
-		len = ft_putchar('%');
 	return (len);
 }

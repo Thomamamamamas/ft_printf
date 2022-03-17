@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:18:19 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/11 20:09:17 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/17 16:05:00 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,48 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <stdlib.h> 
 # include <unistd.h>
-# include <stdlib.h>
-# include <limits.h>
-# include "libft.h"
+# include "libft/libft.h"
+
+typedef	struct s_ptfo
+{
+		int		len;
+		int		has_flag;
+		int		sharp;
+		int		zero_filled;
+		int		l_just;
+		int		r_just_value;
+		int		l_just_value;
+		int		p_sign;
+		int		i_sign;
+		int		conversion;
+}				t_ptfo;
 
 int				ft_printf(const char *content, ...);
 
 //ft_printf_utils
+void			init_ptfo(t_ptfo *po);
+void			write_argument(char *str, va_list arguments, t_ptfo *po);
+int				write_lower_x(char *str);
 
-int				parse_conversion(int conversion, va_list arguments);
-int				ft_putchar(char c);
-int				ft_putstr(char *s);
-int				ft_putnbr(int n);
-int				ft_putnbr_unsigned(int n);
+//ft_printf_parser
+void			handle_percent(const char *content, va_list arguments, t_ptfo *po);
+void			parse_flag(const char *content, t_ptfo *po);
+void			parse_conversion(const char *content, t_ptfo *po);
 
-//ft_printf_utils_2
+//ft_printf_conversion
+char			*do_conversion(va_list arguments, t_ptfo *po);
+int				conversion_is_number(int conversion);
 
-int				ft_put_address(unsigned long long n);
-int				ft_putnbr_hexa(long long n);
-int				ft_putnbr_hexa_lower(long long n);
-int				ft_putaddress(unsigned long long n);
+//ft_printf_precision
+int				apply_justification(char *str, t_ptfo *po);
+int				apply_p_sign(char *str, t_ptfo *po);
+int				apply_i_sign(char *str, t_ptfo *po);
+int				apply_sharp(t_ptfo *po);
+int				fill_with_zero(char *str, t_ptfo *po);
+
+//ft_printf_debug
+void			print_ptfo_value(t_ptfo *po);
 
 #endif
