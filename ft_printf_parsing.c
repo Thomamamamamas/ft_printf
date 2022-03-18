@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 17:20:04 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/17 15:47:33 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/18 09:16:03 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -26,11 +26,10 @@ void	handle_percent(const char *content, va_list arguments, t_ptfo *po)
 	po->len += apply_i_sign(str, po);
 	po->len += fill_with_zero(str, po);
 	if (po->sharp == 1 || po->conversion == 'p')
-		po->len += apply_sharp(po);
+		po->len += apply_sharp(str, po);
 	write_argument(str, arguments, po);
 	if (po->l_just == 1)
 		po->len += apply_justification(str, po);
-	po->len++;
 	free(str);
 }
 

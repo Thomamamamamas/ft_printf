@@ -6,7 +6,7 @@
 #    By: tcasale <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 14:52:20 by tcasale           #+#    #+#              #
-#    Updated: 2022/03/16 09:02:12 by tcasale          ###   ########.fr        #
+#    Updated: 2022/03/18 08:55:24 by tcasale          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ ft_putnbr_fd.c \
 ft_putstr_fd.c \
 ft_split.c \
 ft_strchr.c \
+ft_strcmp.c \
 ft_strdup.c \
 ft_striteri.c \
 ft_strjoin.c \

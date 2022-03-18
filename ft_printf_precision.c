@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 11:23:53 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/17 16:08:02 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/18 09:17:07 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -28,7 +28,7 @@ int	apply_justification(char *str, t_ptfo *po)
 		just_len--;
 	else if (po->conversion == 'p' || po->sharp == 1)
 		just_len = just_len - 2;
-	if ((po->i_sign == 1 || po->p_sign == 1) && ft_atoi(str) >= 0)
+	if ((po->i_sign == 1 || po->p_sign == 1) && ft_atoi(str) >= 0 && po->conversion != 's')
 		just_len--;
 	if (just_len > 0)
 	{
@@ -60,29 +60,39 @@ int	apply_i_sign(char *str, t_ptfo *po)
 	return (0);
 }
 
-int	apply_sharp(t_ptfo *po)
+int	apply_sharp(char *str, t_ptfo *po)
 {
-	if (po->conversion == 'x' || po->conversion == 'p')
-		return (ft_putstr("0x"));
-	else if (po->conversion == 'X')
-		return (ft_putstr("0X"));
+	if (*str != '0')
+	{
+		if (po->conversion == 'x' || po->conversion == 'p')
+			return (ft_putstr("0x"));
+		else if (po->conversion == 'X')
+			return (ft_putstr("0X"));
+	}
 	return (0);
 }
 
 int	fill_with_zero(char *str, t_ptfo *po)
 {
+	int	tmp;
 	int	fill_len;
 	int	n;
 
 	n = 0;
 	if (po->zero_filled == 1 && po->l_just == 0)
 	{
-		if (po->r_just_value != 0)
-			fill_len = po->r_just_value - ft_strlen(str);
-		else 
-			fill_len = po->l_just_value - ft_strlen(str);
+		fill_len = po->r_just_value - ft_strlen(str);
 		if (po->i_sign == 1 || po->p_sign == 1)
 			fill_len--;
+		if (po->conversion != 'u' && ft_atoi(str) < 0)
+		{
+			tmp = ft_atoi(str) * -1;
+			if (str)
+				free(str);
+			str = ft_itoa(tmp);
+			if (tmp > 0)
+				po->len += ft_putchar('-');
+		}
 		while (n++ < fill_len)
 			ft_putchar('0');
 	}

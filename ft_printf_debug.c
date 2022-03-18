@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:56:24 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/17 16:09:41 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/18 09:14:26 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -31,9 +31,9 @@ int	main()
 
 	pute = 3;
 	printf("_____________________________________________________________________________\n");
-	printf("len vrai printf = %d\n", printf("vrai printf = %d\n", '0'));
+	printf("len vrai printf = %d\n", printf("vrai printf = %#x\n", LONG_MIN));
 	printf("_____________________________________________________________________________\n");
-	printf("len faux printf = %d\n", ft_printf("faux printf = %d\n", '0'));
+	printf("len faux printf = %d\n", ft_printf("faux printf = %#x\n", LONG_MIN));
 	printf("_____________________________________________________________________________\n");
 	
 	return (0);

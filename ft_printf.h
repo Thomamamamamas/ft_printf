@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:18:19 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/17 16:05:00 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/18 09:16:18 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				conversion_is_number(int conversion);
 int				apply_justification(char *str, t_ptfo *po);
 int				apply_p_sign(char *str, t_ptfo *po);
 int				apply_i_sign(char *str, t_ptfo *po);
-int				apply_sharp(t_ptfo *po);
+int				apply_sharp(char *str, t_ptfo *po);
 int				fill_with_zero(char *str, t_ptfo *po);
 
 //ft_printf_debug

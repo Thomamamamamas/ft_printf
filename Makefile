@@ -6,7 +6,7 @@
 #    By: tcasale <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 14:52:20 by tcasale           #+#    #+#              #
-#    Updated: 2022/03/17 15:26:26 by tcasale          ###   ########.fr        #
+#    Updated: 2022/03/17 19:06:30 by tcasale          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME	= libftprintf.a
@@ -37,17 +37,17 @@ $(NAME):	libft ${OBJS}
 			$(AR) ${NAME} $(OBJS)
 
 libft:
-	$(MAKE) -C ./Libft
+	$(MAKE) -C ./libft
 	cp libft/libft.a $(NAME)
 
 bonus: $(NAME)
 
 clean:
-		$(MAKE) -C ./Libft $@
+		$(MAKE) -C ./libft $@
 		${RM} ${OBJS}
 
 fclean:	clean
-		$(MAKE) -C ./Libft $@
+		$(MAKE) -C ./libft $@
 		${RM} ${NAME}
 
 re: fclean all
