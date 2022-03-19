@@ -6,13 +6,14 @@
 #    By: tcasale <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 14:52:20 by tcasale           #+#    #+#              #
-#    Updated: 2022/03/17 19:06:30 by tcasale          ###   ########.fr        #
+#    Updated: 2022/03/19 19:01:40 by tcasale          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME	= libftprintf.a
 
 SRCS	=	ft_printf.c \
 			ft_printf_utils.c \
+			ft_printf_utils2.c \
 			ft_printf_parsing.c \
 			ft_printf_conversion.c \
 			ft_printf_precision.c

@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 17:20:04 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/18 09:16:03 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/19 19:24:38 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -20,16 +20,17 @@ void	handle_percent(const char *content, va_list arguments, t_ptfo *po)
 	parse_conversion(content, po);
 	parse_flag(content, po);
 	str = do_conversion(arguments, po);
-	if (po->r_just_value != 0)
-		po->len += apply_justification(str, po);
+	if (po->r_just == 1)
+		po->len += apply_justification(str, po, 1);
 	po->len += apply_p_sign(str, po);
 	po->len += apply_i_sign(str, po);
-	po->len += fill_with_zero(str, po);
+	if (po->zero_filled == 1)
+		po->len += fill_with_zero(str, po);
 	if (po->sharp == 1 || po->conversion == 'p')
 		po->len += apply_sharp(str, po);
 	write_argument(str, arguments, po);
 	if (po->l_just == 1)
-		po->len += apply_justification(str, po);
+		po->len += apply_justification(str, po, 0);
 	free(str);
 }
 
@@ -62,16 +63,21 @@ void	parse_flag(const char *content, t_ptfo *po)
 		}
 		else if (*content == ' ')
 			po->i_sign = 1;
+		else if (*content == '.')
+			po->dot = 1;
 		else if (*content == '#')
 			po->sharp = 1;
 		else
 		{
 			if (po->l_just == 0 && just_value > 0)
+			{
 				po->r_just_value = just_value;
+				if (po->dot == 0 && po->zero_filled == 0)
+					po->r_just = 1;
+			}
 			return ;
 		}
 		content++;
-		po->has_flag = 1;
 	}
 }
 
