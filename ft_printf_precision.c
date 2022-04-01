@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 11:23:53 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/19 19:25:32 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:25:36 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -22,12 +22,15 @@ int	apply_justification(char *str, t_ptfo *po, int just_type)
 		just_len = po->r_just_value - ft_strlen(str);
 	else
 		just_len = po->l_just_value - ft_strlen(str);
-	if (po->conversion == 'c')
+	if (po->conv == 'c')
 		just_len--;
-	else if (po->conversion == 'p' || po->sharp == 1)
+	else if (po->conv == 'p' || po->sharp == 1)
 		just_len = just_len - 2;
-	if ((po->i_sign == 1 || po->p_sign == 1) && ft_atoi(str) >= 0 && po->conversion != 's')
-		just_len--;
+	if ((po->i_sign == 1 || po->p_sign == 1) && po->conv != 's')
+	{
+		if (ft_atoi(str) >= 0)
+			just_len--;
+	}
 	if (just_len > 0)
 	{
 		while (n++ < just_len)
@@ -40,7 +43,7 @@ int	apply_justification(char *str, t_ptfo *po, int just_type)
 
 int	apply_p_sign(char *str, t_ptfo *po)
 {
-	if (po->p_sign == 1 && conversion_is_number(po->conversion))
+	if (po->p_sign == 1 && conversion_is_number(po->conv))
 	{
 		if (ft_atoi(str) >= 0)
 			return (ft_putchar('+'));
@@ -50,9 +53,9 @@ int	apply_p_sign(char *str, t_ptfo *po)
 
 int	apply_i_sign(char *str, t_ptfo *po)
 {
-	if (po->i_sign == 1 && conversion_is_number(po->conversion))
+	if (po->i_sign == 1 && conversion_is_number(po->conv))
 	{
-		if (po->p_sign == 0  && ft_atoi(str) >= 0)
+		if (po->p_sign == 0 && ft_atoi(str) >= 0)
 			return (ft_putchar(' '));
 	}
 	return (0);
@@ -69,7 +72,7 @@ int	fill_with_zero(char *str, t_ptfo *po)
 		fill_len = po->r_just_value - ft_strlen(str);
 		if (po->i_sign == 1 || po->p_sign == 1)
 			fill_len--;
-		if (po->conversion != 'u' && ft_atoi(str) < 0)
+		if (po->conv != 'u' && ft_atoi(str) < 0 && po->dot == 0)
 			str = negative_str_to_positive(str, po);
 		while (n++ < fill_len)
 			ft_putchar('0');

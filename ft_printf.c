@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:17:23 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/19 14:16:51 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/28 13:02:09 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -26,7 +26,7 @@ int	ft_printf(const char *content, ...)
 			init_ptfo(&po);
 			handle_percent(content, arguments, &po);
 			content++;
-			while (*content && *content != po.conversion)
+			while (*content && *content != po.conv)
 				content++;
 		}
 		else

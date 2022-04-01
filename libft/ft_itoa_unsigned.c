@@ -6,12 +6,11 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 08:46:21 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/17 15:21:20 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/28 12:24:45 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 #include <stdlib.h>
-
 
 static int	len(int n)
 {
@@ -34,8 +33,8 @@ static int	len(int n)
 char	*ft_itoa_unsigned(int n)
 {
 	unsigned int	nb;
-	char		*str;
-	int			i;
+	char			*str;
+	int				i;
 
 	if (n < 0)
 		nb = n + UINT_MAX + 1;

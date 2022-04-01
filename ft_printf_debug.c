@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:56:24 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/19 19:25:54 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:32:54 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -21,7 +21,7 @@ void	print_ptfo_value(t_ptfo *po)
 	printf("l_just_value = %d\n", po->l_just_value);
 	printf("p_sign = %d\n", po->p_sign);
 	printf("i_sign = %d\n", po->i_sign);
-	printf("conversion = %c\n", po->conversion);
+	printf("conversion = %c\n", po->conv);
 }
 
 int	main()
@@ -30,10 +30,9 @@ int	main()
 
 	pute = 3;
 	printf("_____________________________________________________________________________\n");
-	printf("len vrai printf = %d\n", printf("vrai printf = %-5d\n", 0));
+	printf("len vrai printf = %d\n", printf("vrai printf = %.12d\n", UINT_MAX));
 	printf("_____________________________________________________________________________\n");
-	printf("len faux printf = %d\n", ft_printf("faux printf = %-5d\n", 0));
+	printf("len faux printf = %d\n", ft_printf("faux printf = %.12d\n", UINT_MAX));
 	printf("_____________________________________________________________________________\n");
-	
 	return (0);
 }

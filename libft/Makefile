@@ -6,7 +6,7 @@
 #    By: tcasale <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/13 14:52:20 by tcasale           #+#    #+#              #
-#    Updated: 2022/03/18 08:55:24 by tcasale          ###   ########.fr        #
+#    Updated: 2022/03/28 12:25:47 by tcasale          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,6 @@ ft_putadress.c \
 ft_puthexa_upper.c \
 ft_puthexa_lower.c \
 ft_itoa_base.c \
-ft_is_sort.c \
 ft_itoa_unsigned.c \
 ft_itoa_adress.c
 

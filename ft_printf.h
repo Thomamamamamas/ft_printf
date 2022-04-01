@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:18:19 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/19 19:22:01 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/03/28 12:51:31 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,52 @@
 # include <unistd.h>
 # include "libft/libft.h"
 
-typedef	struct s_ptfo
+typedef struct s_ptfo
 {
-		int		len;
-		int		dot;
-		int		sharp;
-		int		zero_filled;
-		int		r_just;
-		int		l_just;
-		int		r_just_value;
-		int		l_just_value;
-		int		p_sign;
-		int		i_sign;
-		int		conversion;
+	int	len;
+	int	dot;
+	int	sharp;
+	int	zero_filled;
+	int	r_just;
+	int	l_just;
+	int	r_just_value;
+	int	l_just_value;
+	int	p_sign;
+	int	i_sign;
+	int	conv;
 }				t_ptfo;
 
-int				ft_printf(const char *content, ...);
+int			ft_printf(const char *content, ...);
 
 //ft_printf_utils
-void			init_ptfo(t_ptfo *po);
-void			write_argument(char *str, va_list arguments, t_ptfo *po);
-int				write_lower_x(char *str);
-int				write_argument_dot(char *str, t_ptfo *po);
-int				apply_sharp(char *str, t_ptfo *po);
+void		init_ptfo(t_ptfo *po);
+void		write_argument(char *str, va_list arguments, t_ptfo *po);
+int			write_lower_x(char *str);
+int			write_argument_dot(char *str, t_ptfo *po);
+int			apply_sharp(char *str, t_ptfo *po);
 
-//ft_printf_utils
-char			*negative_str_to_positive(char *str, t_ptfo *po);
+//ft_printf_utils2
+char		*negative_str_to_positive(char *str, t_ptfo *po);
+int			is_flag(char content);
 
 //ft_printf_parser
-void			handle_percent(const char *content, va_list arguments, t_ptfo *po);
-void			parse_flag(const char *content, t_ptfo *po);
-void			parse_conversion(const char *content, t_ptfo *po);
+void		handle_percent(const char *content, va_list arguments, t_ptfo *po);
+void		parse_flag(const char *content, t_ptfo *po);
+void		set_flags(char content, t_ptfo *po);
+int			set_just_value(char content, int just_value, t_ptfo *po);
+void		parse_conversion(const char *content, t_ptfo *po);
 
 //ft_printf_conversion
-char			*do_conversion(va_list arguments, t_ptfo *po);
-int				conversion_is_number(int conversion);
+char		*do_conversion(va_list arguments, t_ptfo *po);
+int			conversion_is_number(int conversion);
 
 //ft_printf_precision
-int				apply_justification(char *str, t_ptfo *po, int just_type);
-int				apply_p_sign(char *str, t_ptfo *po);
-int				apply_i_sign(char *str, t_ptfo *po);
-int				fill_with_zero(char *str, t_ptfo *po);
+int			apply_justification(char *str, t_ptfo *po, int just_type);
+int			apply_p_sign(char *str, t_ptfo *po);
+int			apply_i_sign(char *str, t_ptfo *po);
+int			fill_with_zero(char *str, t_ptfo *po);
 
 //ft_printf_debug
-void			print_ptfo_value(t_ptfo *po);
+void		print_ptfo_value(t_ptfo *po);
 
 #endif

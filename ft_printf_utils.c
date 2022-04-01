@@ -6,7 +6,7 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:08:03 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/19 19:21:51 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:09:50 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -23,27 +23,27 @@ void	init_ptfo(t_ptfo *po)
 	po->l_just_value = 0;
 	po->p_sign = 0;
 	po->i_sign = 0;
-	po->conversion = 0;
+	po->conv = 0;
 }
 
 void	write_argument(char *str, va_list arguments, t_ptfo *po)
 {
-	if (po->conversion == 'c')
+	if (po->conv == 'c')
 		po->len += ft_putchar(va_arg(arguments, int));
-	else if (po->conversion == 'x')
+	else if (po->conv == 'x' && po->dot == 0)
 		po->len += write_lower_x(str);
-	else if (po->conversion == '%')
+	else if (po->conv == '%')
 		po->len += ft_putchar('%');
 	else if (po->dot == 1)
 	{
-		if (po->conversion == 'd' || po->conversion == 'i' || po->conversion == 's')
+		if (conversion_is_number(po->conv))
 			po->len += write_argument_dot(str, po);
 	}
 	else
 		po->len += ft_putstr(str);
 }
 
-int		write_lower_x(char *str)
+int	write_lower_x(char *str)
 {
 	int	n;
 	int	len;
@@ -65,28 +65,21 @@ int	write_argument_dot(char *str, t_ptfo *po)
 {
 	int	n;
 	int	len;
-	int	fill_len;
 
 	n = 0;
 	len = 0;
-	fill_len = 0;
-	if (po->conversion == 's')
-	{
+	if (po->conv == 's')
 		while (str[n] && n < po->r_just_value)
 			len += ft_putchar(str[n++]);
-	}
-	else if (po->conversion == 'd' || po->conversion == 'i' || po->conversion == 'u')
+	else if (conversion_is_number(po->conv))
 	{
-		if (po->conversion != 'u' && ft_atoi(str) < 0)
-		{
-				fill_len = po->r_just_value - ft_strlen(str) + 1;
-				str = negative_str_to_positive(str, po);
-		}
+		if (ft_atoi(str) < 0 && po->conv != 'u')
+			str = negative_str_to_positive(str, po);
+		len += fill_with_zero(str, po);
+		if (po->conv == 'x')
+			len += write_lower_x(str);
 		else
-			fill_len = po->r_just_value - ft_strlen(str);
-		while (n++ < fill_len)
-			len += ft_putchar('0');
-		len += ft_putstr(str);
+			len += ft_putstr(str);
 	}
 	return (len);
 }
@@ -95,9 +88,9 @@ int	apply_sharp(char *str, t_ptfo *po)
 {
 	if (*str != '0')
 	{
-		if (po->conversion == 'x' || po->conversion == 'p')
+		if (po->conv == 'x' || po->conv == 'p')
 			return (ft_putstr("0x"));
-		else if (po->conversion == 'X')
+		else if (po->conv == 'X')
 			return (ft_putstr("0X"));
 	}
 	return (0);

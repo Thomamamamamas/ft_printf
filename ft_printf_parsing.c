@@ -6,12 +6,11 @@
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 17:20:04 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/19 19:24:38 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:26:54 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include <stdio.h>
-
 
 void	handle_percent(const char *content, va_list arguments, t_ptfo *po)
 {
@@ -26,7 +25,7 @@ void	handle_percent(const char *content, va_list arguments, t_ptfo *po)
 	po->len += apply_i_sign(str, po);
 	if (po->zero_filled == 1)
 		po->len += fill_with_zero(str, po);
-	if (po->sharp == 1 || po->conversion == 'p')
+	if (po->sharp == 1 || po->conv == 'p')
 		po->len += apply_sharp(str, po);
 	write_argument(str, arguments, po);
 	if (po->l_just == 1)
@@ -42,58 +41,74 @@ void	parse_flag(const char *content, t_ptfo *po)
 	content++;
 	while (*content)
 	{
-		if (*content == '-')
-		{
-			if (just_value != 0)
-				po->l_just_value = just_value;
-			po->l_just = 1;
-		}
-		else if (*content == '+')
-			po->p_sign = 1;
+		if (is_flag(*content))
+			set_flags(*content, po);
+		else if (*content == '-')
+			set_just_value(*content, just_value, po);
+		else if (ft_isdigit(*content) && *content == '0' && just_value == 0)
+			po->zero_filled = 1;
 		else if (ft_isdigit(*content))
-		{
-			if (*content == '0' && just_value == 0)
-				po->zero_filled = 1;
-			else
-			{
-				just_value = just_value * 10 + *content - 48;
-				if (po->l_just == 1)
-					po->l_just_value = just_value;
-			}
-		}
-		else if (*content == ' ')
-			po->i_sign = 1;
-		else if (*content == '.')
-			po->dot = 1;
-		else if (*content == '#')
-			po->sharp = 1;
+			just_value = set_just_value(*content, just_value, po);
 		else
 		{
-			if (po->l_just == 0 && just_value > 0)
-			{
-				po->r_just_value = just_value;
-				if (po->dot == 0 && po->zero_filled == 0)
-					po->r_just = 1;
-			}
+			set_just_value(*content, just_value, po);
 			return ;
 		}
 		content++;
 	}
 }
 
-void		parse_conversion(const char *content, t_ptfo *po)
+void	set_flags(char content, t_ptfo *po)
+{
+	if (content == '+')
+		po->p_sign = 1;
+	else if (content == ' ')
+		po->i_sign = 1;
+	else if (content == '.')
+		po->dot = 1;
+	else if (content == '#')
+		po->sharp = 1;
+}
+
+int	set_just_value(char content, int just_value, t_ptfo *po)
+{
+	if (ft_isdigit(content))
+	{
+		just_value = just_value * 10 + content - 48;
+		if (po->l_just == 1)
+			po->l_just_value = just_value;
+	}
+	else if (content == '-')
+	{
+		if (just_value != 0)
+			po->l_just_value = just_value;
+		po->l_just = 1;
+	}
+	else
+	{
+		if (po->l_just == 0 && just_value > 0)
+		{
+			po->r_just_value = just_value;
+			if (po->dot == 0 && po->zero_filled == 0)
+				po->r_just = 1;
+		}
+	}
+	return (just_value);
+}
+
+void	parse_conversion(const char *content, t_ptfo *po)
 {
 	int	first;
 
 	first = 0;
-	while (*content && (!ft_isalpha(*content) && po->conversion == 0))
+	while (*content && (!ft_isalpha(*content) && po->conv == 0))
 	{
 		if (*content == '%' && first == 0)
 			first++;
 		else if (*content == '%' && first == 1)
-			po->conversion = *content;
+			po->conv = *content;
 		content++;
 	}
 	if (ft_isalpha(*content) || *content == '%')
-		po->conversion = *content;
+		po->conv = *content;
 }

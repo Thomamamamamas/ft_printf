@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_base_tmp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:36:43 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/16 15:02:47 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/04/01 09:58:34 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -35,7 +35,6 @@ char	*ft_itoa_base(long long n, size_t base)
 {
 	char	*caracters;
 	size_t	len;
-	size_t	i;
 	char	*str;
 
 	len = size_to_allocate(n, base);
@@ -45,7 +44,7 @@ char	*ft_itoa_base(long long n, size_t base)
 	if (!str || base > 16)
 		return (NULL);
 	caracters = "0123456789ABCDEF";
-	i = len - 1;
+	str[len--] = '\0';
 	if (n < 0)
 	{
 		str[0] = '-';
@@ -55,11 +54,9 @@ char	*ft_itoa_base(long long n, size_t base)
 		str[0] = '0';
 	while (n != 0)
 	{
-		str[i] = caracters[n % base];
+		str[len--] = caracters[n % base];
 		n = n / base;
-		i--;
 	}
-	str[len] = '\0';
 	return (str);
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 15:39:45 by tcasale           #+#    #+#             */
-/*   Updated: 2022/03/17 15:18:35 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/04/01 10:20:54 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 
-
 //Bonus 
 
 void		ft_lstadd_front(t_list **alst, t_list *new);
@@ -92,6 +91,5 @@ int			ft_is_sort(int *tab, size_t lenght);
 char		*ft_itoa_base(long long n, size_t base);
 char		*ft_itoa_unsigned(int n);
 char		*ft_itoa_adress(unsigned long long n);
-
 
 #endif
