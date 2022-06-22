@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcasale <tcasale@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/11 20:08:03 by tcasale           #+#    #+#             */
-/*   Updated: 2022/04/01 10:09:50 by tcasale          ###   ########.fr       */
+/*   Created: 2022/06/22 17:01:36 by tcasale           #+#    #+#             */
+/*   Updated: 2022/06/22 18:05:39 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -36,8 +36,7 @@ void	write_argument(char *str, va_list arguments, t_ptfo *po)
 		po->len += ft_putchar('%');
 	else if (po->dot == 1)
 	{
-		if (conversion_is_number(po->conv))
-			po->len += write_argument_dot(str, po);
+		po->len += write_argument_dot(str, po);
 	}
 	else
 		po->len += ft_putstr(str);
@@ -86,7 +85,7 @@ int	write_argument_dot(char *str, t_ptfo *po)
 
 int	apply_sharp(char *str, t_ptfo *po)
 {
-	if (*str != '0')
+	if (*str != '0' || po->conv == 'p')
 	{
 		if (po->conv == 'x' || po->conv == 'p')
 			return (ft_putstr("0x"));
