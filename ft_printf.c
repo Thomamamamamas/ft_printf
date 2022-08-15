@@ -6,11 +6,10 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 11:17:23 by tcasale           #+#    #+#             */
-/*   Updated: 2022/06/22 18:05:48 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/08/15 13:08:58 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_printf(const char *content, ...)
 {

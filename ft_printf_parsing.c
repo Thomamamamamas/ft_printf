@@ -6,7 +6,7 @@
 /*   By: tcasale <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 17:00:16 by tcasale           #+#    #+#             */
-/*   Updated: 2022/06/22 18:05:41 by tcasale          ###   ########.fr       */
+/*   Updated: 2022/08/15 13:16:50 by tcasale          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -109,6 +109,6 @@ void	parse_conversion(const char *content, t_ptfo *po)
 			po->conv = *content;
 		content++;
 	}
-	if (ft_isalpha(*content) || *content == '%')
+	if ((ft_isalpha(*content) || *content == '%') && po->conv != '%')
 		po->conv = *content;
 }
